@@ -1,8 +1,26 @@
-When the data were migrated to the database, there was a small misunderstanding on the DBA.
-
-Your boss needs you to select the ID and the name of the products, whose categorie name start with 'super'.
+16/04/2026
+Quando os dados foram migrados para o banco de dados, houve um pequeno mal-entendido por parte do DBA.
+Seu chefe precisa que você selecione o ID e o nome dos produtos cujo nome da categoria começa com 'super'.
 
 SELECT products.id, products.name
 FROM products
 JOIN categories ON products.id_categories = categories.id
 WHERE categories.name LIKE 'super%';
+
+
+O setor financeiro da nossa empresa, quer saber os valores menores e maiores dos produtos, que vendemos.
+Para isso, você deve exibir apenas o preço mais alto e mais baixo da tabela de produtos.
+
+SELECT 
+MAX(price) as price, 
+MIN(price) as price 
+FROM products;
+
+Como de costume, o setor de vendas está analisando a quantidade de produtos em estoque, e você pode ajudar.
+Sua função será exibir o nome e a quantidade de produtos de cada categoria.
+
+
+SELECT categories.name, SUM(products.amount) AS sum
+FROM products
+JOIN categories ON products.id_categories = categories.id
+GROUP BY categories.name;
