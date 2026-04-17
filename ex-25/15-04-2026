@@ -1,4 +1,7 @@
 16/04/2026
+
+LIKE
+
 Quando os dados foram migrados para o banco de dados, houve um pequeno mal-entendido por parte do DBA.
 Seu chefe precisa que você selecione o ID e o nome dos produtos cujo nome da categoria começa com 'super'.
 
@@ -7,6 +10,7 @@ FROM products
 JOIN categories ON products.id_categories = categories.id
 WHERE categories.name LIKE 'super%';
 
+MAX E MIN
 
 O setor financeiro da nossa empresa, quer saber os valores menores e maiores dos produtos, que vendemos.
 Para isso, você deve exibir apenas o preço mais alto e mais baixo da tabela de produtos.
@@ -16,6 +20,9 @@ MAX(price) as price,
 MIN(price) as price 
 FROM products;
 
+
+SOMA
+
 Como de costume, o setor de vendas está analisando a quantidade de produtos em estoque, e você pode ajudar.
 Sua função será exibir o nome e a quantidade de produtos de cada categoria.
 
@@ -24,3 +31,54 @@ SELECT categories.name, SUM(products.amount) AS sum
 FROM products
 JOIN categories ON products.id_categories = categories.id
 GROUP BY categories.name;
+
+MEDIA
+
+Na empresa em que você trabalha, está sendo realizada uma pesquisa sobre os valores dos produtos comercializados.
+Para auxiliar a empresa que está realizando essa pesquisa, você deve calcular e apresentar o valor médio do preço dos produtos.
+OBS: Apresente o valor com dois números após o ponto final.
+
+SELECT ROUND(AVG (price),2) FROM products
+#ROUND e o 2 é para representar o retorno em float 
+
+
+selecione o código e o nome dos filmes cujo gênero seja descrito como Ação 
+
+ */
+SELECT movies.id, movies.name FROM movies 
+JOIN genres ON movies.id_genres = genres.id 
+WHERE genres.description LIKE 'Action';
+
+
+Sua tarefa é nos ajudar selecionando o ID e o nome dos filmes cujo preço seja inferior a 2,00.
+
+SELECT movies.id, movies.name
+FROM movies 
+JOIN prices ON movies.id_prices = prices.id
+WHERE priceS.value < 2
+
+BETWEEN 
+
+selecionar o nome dos clientes e a data da locação, dentre as locações realizadas em setembro de 2016.
+
+SELECT customers.name, rentals.rentals_date
+FROM customers 
+JOIN rentals ON customers.id = rentals.id_custumers 
+WHERE rentals.rentals_date BETWEEN '2016-09-01' AND '2016-09-30';
+
+LEFT JOIN 
+
+A locadora de vídeos pretende fazer uma promoção para clientes que ainda não alugaram nenhum filme.
+Sua tarefa é nos fornecer o ID e o nome dos clientes que ainda não alugaram nenhum filme. Ordene a saída por ID.
+
+SELECT customers.id, customers.name 
+FROM customers 
+LEFT JOIN locations ON customers.id = locations.id_customers
+WHERE locations.id_customers IS NULL
+ORDER BY customers.id;
+
+INNER JOIN: Retorna apenas as linhas onde há correspondência em ambas as tabelas. Ideal para interseções diretas.
+LEFT JOIN (ou LEFT OUTER JOIN): Retorna todas as linhas da tabela esquerda (tabela A) e as linhas correspondentes da direita (tabela B). Se não houver, retorna NULL para a tabela B.
+RIGHT JOIN (ou RIGHT OUTER JOIN): Retorna todas as linhas da tabela direita (tabela B) e as correspondentes da esquerda (tabela A). Se não houver, retorna NULL para a tabela A.
+FULL JOIN (ou FULL OUTER JOIN): Retorna todos os registros quando houver correspondência na tabela esquerda ou direita. Combina os resultados de LEFT e RIGHT JOIN.
+CROSS JOIN: Produz um produto cartesiano, combinando cada linha da primeira tabela com todas as linhas da segunda tabela.
